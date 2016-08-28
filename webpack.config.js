@@ -20,7 +20,7 @@ var commonConfig = {
 
 var clientConfig = {
   target: 'web',
-  entry: './src/client',
+  entry: './src/bootstrap',
   output: {
     path: path.join(__dirname, 'dist')
   }

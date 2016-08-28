@@ -3,7 +3,7 @@ import 'angular2-universal/polyfills';
 import {REQUEST_URL, NODE_LOCATION_PROVIDERS} from 'angular2-universal';
 import {provide, enableProdMode} from '@angular/core';
 // import {APP_BASE_HREF, ROUTER_PROVIDERS} from '@angular/router';
-import {prerender} from 'angular2-gulp-prerender';
+import {prerender} from './angular2-gulp-prerender';
 
 import {App} from './src/app/app';
 
