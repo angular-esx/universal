@@ -9,7 +9,6 @@
   "scripts": {
     "render": "npm run render:gulp",
     "render:gulp": "./node_modules/.bin/gulp prerender",
-    "postinstall": "./node_modules/.bin/typings install",
     "watch": "./node_modules/.bin/webpack --watch",
     "build": "./node_modules/.bin/webpack && npm run render",
     "prestart": "npm run build",
@@ -19,10 +18,7 @@
   },
   "license": "MIT",
   "contributors": [
-    "AngularClass <hello@angularclass.com>",
-    "PatrickJS <patrick@angularclass.com>",
-    "Jeff Whelpley <jeff@gethuman.com>",
-    "Jeff Cross <crossj@google.com>"
+    "Thanh Tran"
   ],
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
@@ -50,10 +46,6 @@
     "gutil": "^1.6.4",
     "http-server": "^0.8.5",
     "rimraf": "^2.5.0",
-    "ts-loader": "^0.8.0",
-    "ts-node": "^0.5.5",
-    "typescript": "^1.7.5",
-    "typings": "^0.6.8",
     "webpack": "^1.12.10",
     "webpack-dev-server": "^1.14.0",
     "webpack-merge": "^0.7.1"

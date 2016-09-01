@@ -4,12 +4,10 @@ var path = require('path');
 
 var commonConfig = {
   resolve: {
-    extensions: ['', '.ts', '.js']
+    extensions: ['', '.js']
   },
   module: {
     loaders: [
-      // TypeScript
-      { test: /\.ts$/, loader: 'ts-loader', exclude: [ /node_modules/ ] }
     ]
   },
   plugins: [
