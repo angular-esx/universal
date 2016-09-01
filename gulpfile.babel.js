@@ -1,4 +1,4 @@
-import gulp = require('gulp');
+import gulp from 'gulp';
 import 'angular2-universal/polyfills';
 import {REQUEST_URL, NODE_LOCATION_PROVIDERS} from 'angular2-universal';
 import {provide, enableProdMode} from '@angular/core';

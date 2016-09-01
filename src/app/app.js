@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-@Component({
+export let App = Component({
   selector: 'app',
   directives: [
   ],
@@ -19,6 +19,8 @@ import {Component} from '@angular/core';
   </div>
   `
 })
-export class App {
-  name: string = 'Angular 2';
-}
+  .Class({
+    constructor: function () {
+      this.name = 'Angular 2';
+    }
+  });
