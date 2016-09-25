@@ -1,20 +1,10 @@
 {
-  "name": "angular2-universal-starter",
+  "name": "universal-starter",
   "version": "2.0.0",
-  "description": "Angular 2 Universal starter kit by @AngularClass",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/universal-starter.git"
-  },
   "scripts": {
-    "render": "npm run render:gulp",
-    "render:gulp": "./node_modules/.bin/gulp prerender",
-    "watch": "./node_modules/.bin/webpack --watch",
-    "build": "./node_modules/.bin/webpack && npm run render",
-    "prestart": "npm run build",
-    "start": "./node_modules/.bin/http-server dist --cors",
-    "predebug": "npm run build",
-    "debug": "node --debug-brk dist/server/bundle.js"
+    "start": "gulp && npm run serve",
+    "build": "gulp",
+    "serve": "lite-server"
   },
   "license": "MIT",
   "contributors": [
@@ -50,7 +40,7 @@
     "del": "^2.2.2",
     "gulp": "^3.9.0",
     "gutil": "^1.6.4",
-    "http-server": "^0.8.5",
+    "lite-server": "^2.2.2",
     "rimraf": "^2.5.0",
     "webpack": "^2.1.0-beta.22",
     "webpack-dev-server": "^1.14.0",
