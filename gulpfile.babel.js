@@ -86,7 +86,7 @@ gulp.task('webpack', ['clean'], function () {
     ),
     new UniversalPrerender({
       ngModule: MainModule,
-      documentPath: 'index.html',
+      documentPath: '../index.html',
       document: `
 <!doctype>
 <html lang="en">
