@@ -40,10 +40,33 @@ import autoprefixer from 'autoprefixer';
 import { UniversalPrerender } from './webpack-prerender';
 import { MainModule } from './main.node';
 import ContextReplacementPlugin from 'webpack/lib/ContextReplacementPlugin';
+import fs from 'fs';
+
+var indexHTML = fs.readFileSync("./src/index.html", "utf8");
 
 var commonConfig = {
   context: path.resolve(__dirname),
-  plugins: [],
+  plugins: [
+    new ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      root('./src')
+    ),
+    new UniversalPrerender({
+      ngModule: MainModule,
+      documentPath: '../index.html',
+      document: indexHTML,
+      time: true,
+      originUrl: 'http://localhost:3000',
+      baseUrl: '/',
+      requestUrl: '/',
+      preboot: false,
+      // preboot: { appRoot: ['app'], uglify: true },
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['app', 'vendors', 'polyfills']
+    })
+  ],
   module: {
     loaders: [
       {
@@ -72,56 +95,7 @@ gulp.task('clean', function () {
   del.sync(['./dist/**']);
 })
 
-gulp.task('copy:index', ['clean'], function () {
-  return gulp.src('./src/index.html').pipe(gulp.dest('dist'));
-});
-
 gulp.task('webpack', ['clean'], function () {
-
-  var sharedPlugins = [
-    new ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      root('./src')
-    ),
-    new UniversalPrerender({
-      ngModule: MainModule,
-      documentPath: '../index.html',
-      document: `
-<!doctype>
-<html lang="en">
-<head>
-  <title>Angular 2 Universal Starter</title>
-  <meta charset="UTF-8">
-  <meta name="description" content="Angular 2 Universal">
-  <meta name="keywords" content="Angular 2,Universal">
-  <meta name="author" content="PatrickJS">
-
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-
-  <base href="/">
-<body>
-  <div style="position: absolute;z-index: 1000000;bottom: 9px">
-    <button onclick="bootstrap()">Bootstrap Client</button>
-    <button onclick="location.reload()">Reload Client</button>
-  </div>
-
-  <app>
-    Loading...
-  </app>
-
-  <script src="dist/public/browser-bundle.js"></script>
-</body>
-</html>
-    `,
-      time: true,
-      originUrl: 'http://localhost:3000',
-      baseUrl: '/',
-      requestUrl: '/',
-      preboot: false,
-      // preboot: { appRoot: ['app'], uglify: true },
-    })
-  ];
 
   commonConfig.entry = {
     vendors: './configs/webpack/vendors.js',
@@ -134,19 +108,9 @@ gulp.task('webpack', ['clean'], function () {
     filename: '[name].js'
   };
 
-  commonConfig.plugins = sharedPlugins;
-
-  // commonConfig.plugins = [
-  //   new webpack.optimize.CommonsChunkPlugin({
-  //     name: ['app', 'vendors', 'polyfills']
-  //   })
-  // ];
-
   webpack(commonConfig, function (err, stats) {
     if (err) {
       console.log(err);
-
-      _deferred.reject();
     }
 
     if (stats) {
